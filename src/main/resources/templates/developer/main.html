@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="developer/common/head::head"></th:block>
+</head>
+<body class="nav-md footer_fixed">
+<div class="container body">
+    <div class="main_container">
+        <!-- left -->
+        <th:block th:insert="developer/common/head::left"></th:block>
+        <!-- top -->
+        <th:block th:insert="developer/common/head::top"></th:block>
+        <!--right -->
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3 th:inline="text">
+                        欢迎你：[[${session.devUserSession.devName}]]<strong> | 角色：开发者账户</strong>
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+        <th:block th:insert="developer/common/foot::footer"></th:block>
+    </div>
+</div>
+<th:block th:insert="developer/common/foot::js"></th:block>
+</body>
+</html>
