@@ -111,7 +111,7 @@
         dropzone.on("dragEnter", function() { });
      */
 
-    Dropzone.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
+    Dropzone.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "templates.error.error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
 
     Dropzone.prototype.defaultOptions = {
       url: null,
@@ -377,7 +377,7 @@
       },
       successmultiple: noop,
       canceled: function(file) {
-        return this.emit("error", file, "Upload canceled.");
+        return this.emit("templates.error.error", file, "Upload canceled.");
       },
       canceledmultiple: noop,
       complete: function(file) {
@@ -1408,7 +1408,7 @@
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
         file.status = Dropzone.ERROR;
-        this.emit("error", file, message, xhr);
+        this.emit("templates.error.error", file, message, xhr);
         this.emit("complete", file);
       }
       if (this.options.uploadMultiple) {
@@ -1649,7 +1649,7 @@
 
   Dropzone.CANCELED = "canceled";
 
-  Dropzone.ERROR = "error";
+  Dropzone.ERROR = "templates.error.error";
 
   Dropzone.SUCCESS = "success";
 
