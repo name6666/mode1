@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.jhc.app_info_mng.dao.UserMappers">
+    <insert id="UserAdd" parameterType="Userss">
+        INSERT INTO sys_user(uName,uPassWord) VALUES(#{uName},#{uPassWord})
+    </insert>
+
+
+    <resultMap id="mp" type="net.jhc.app_info_mng.pojo.Userss">
+        <result property="uid" column="uid"></result>
+        <result property="uName" column="uName"></result>
+        <result property="uPassWord" column="uPassWord"></result>
+        <collection property="usIfo" javaType="net.jhc.app_info_mng.pojo.Info">
+            <result property="uLg" column="uLg"></result>
+            <result property="iName" column="iName"></result>
+        </collection>
+    </resultMap>
+    <select id="findUserName" resultMap="mp" parameterType="string">
+        SELECT u.*,s.* FROM sys_user s,userinfo u
+        <where>
+            <if test="uName!=null and uName!=''">
+                AND uName=#{uName}
+            </if>
+            AND u.uLg=s.uLg
+        </where>
+    </select>
+    <select id="findUserbyId" resultMap="mp" parameterType="int">
+        SELECT * FROM sys_user where uid=#{uid}
+    </select>
+
+
+
+    <update id="UserUpdate" parameterType="Userss">
+        UPDATE sys_user
+        <set>
+            <if test="uName!=null">uName=#{uName},</if>
+            <if test="uPassWord!=null">uPassWord=#{uPassWord},</if>
+        </set>
+        WHERE uid=#{uid}
+    </update>
+    <delete id="deluser" parameterType="int">
+        DELETE FROM sys_user WHERE uid=#{uid}
+    </delete>
+</mapper>
+

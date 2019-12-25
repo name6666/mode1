@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.jhc.app_info_mng.dao.FruitInformationMapper">
+    <insert id="FrontAdd" parameterType="FruitInformation">
+        INSERT INTO fruit_information(fName, fWeight,fPrice,fInventory) VALUES (#{fName},#{fWeight},#{fPrice},#{fInventory})
+    </insert>
+    <select id="findFrontNamebyId" resultType="FruitInformation" parameterType="int">
+        SELECT * FROM fruit_information WHERE fid=#{fid}
+    </select>
+
+    <select id="findUserFrontbyUname" resultType="FruitInformation" parameterType="String">
+        SELECT * FROM fruit_information
+        <where>
+            <if test="fName!=null and fName!=''">
+                AND fName like concat('%',#{fName},'%')
+            </if>
+        </where>
+    </select>
+
+    <update id="FrontUpdate" parameterType="FruitInformation">
+        UPDATE fruit_information
+        <set>
+            <if test="fName!=null">fName=#{fName},</if>
+            <if test="fWeight!=null">fWeight=#{fWeight},</if>
+            <if test="fPrice!=null">fPrice=#{fPrice},</if>
+            <if test="fInventory!=null">fInventory=#{fInventory},</if>
+        </set>
+        WHERE fid=#{fid}
+    </update>
+    <delete id="delFront" parameterType="int">
+        DELETE FROM fruit_information WHERE fid=#{fid}
+    </delete>
+</mapper>
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+		<title>个人账单</title>
+
+		<link th:href="@{/assets/css/admin.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/assets/css/amazeui.css}" rel="stylesheet" type="text/css">
+
+		<link th:href="@{/css/personal.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/blstyle.css}" rel="stylesheet" type="text/css">
+		<script th:src="@{/assets/js/jquery.min.js}"></script>
+		<script th:src="@{/assets/js/amazeui.js}"></script>
+
+	</head>
+
+	<body>
+
+
+		<!--头 -->
+		<header>
+			<article>
+				<div class="mt-logo">
+					<th:block th:insert="frontDesk/common/fdhead::fdhead"></th:block>
+
+					<!--悬浮搜索框-->
+
+					<div class="nav white">
+						<div class="logoBig">
+							<li><img th:src="@{/images/logobig.png}" /></li>
+						</div>
+						<!--                index_none_header_sysc-->
+						<div class="search-bar pr" th:action="@{/fdc/findOrder}">
+							<a name="index_none_header_sysc" href="#"></a>
+							<form method="post">
+								<input id="searchInput" name="oFruit" type="text" placeholder="根据水果名字搜索" autocomplete="off">
+								<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+							</form>
+						</div>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+				</div>
+			</article>
+		</header>
+		<div class="nav-table">
+			<div class="long-title"><span class="all-goods">全部分类</span></div>
+			<div class="nav-cont">
+				<ul>
+					<li class="index"><a href="#">首页</a></li>
+					<li class="qc"><a href="#">闪购</a></li>
+					<li class="qc"><a href="#">限时抢</a></li>
+					<li class="qc"><a href="#">团购</a></li>
+					<li class="qc last"><a href="#">大包装</a></li>
+				</ul>
+			</div>
+		</div>
+		<b class="line"></b>
+		<div class="center">
+			<div class="col-main">
+				<div class="main-wrap">
+					<div class="am-cf am-padding">
+						<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人账单</strong> /
+							<small>Personal&nbsp;bills</small>
+						</div>
+					</div>
+					<hr>
+
+					<table width="100%">
+
+						<thead>
+							<tr>
+								<th class="memo" style="text-align: center">水果数量</th>
+								<th class="time">收货地址</th>
+								<th class="name">名称</th>
+								<th class="amount">金额</th>
+								<th class="action">操作</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="userInfo:${OrderList}" varStatus="status">
+								<!--                    <td class="img">-->
+								<!--                        <i><img th:src="@{/images/songzi.jpg}"></i>-->
+								<!--                    </td>-->
+								<td th:inline="text" style="text-align: center">
+									<i>[[${userInfo.oNumber}]]</i>
+								</td>
+								<td class="time" th:text="${userInfo.getOAddress()}">
+								</td>
+								<td class="title name" th:inline="text">
+									<p class="content" >
+										[[${userInfo.getOFruit()}]]
+									</p>
+								</td>
+								<td class="amount" th:inline="text">
+									<span class="amount-pay">[[${userInfo.oPrice}]]</span>
+								</td>
+								<td class="operation">
+									<a th:href="@{/fdc/del(oid=${userInfo.getOid()})}">删除</a>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$(".date-trigger").click(function() {
+								$(".show-input").css("display", "none");
+							});
+						})
+					</script>
+
+				</div>
+				<!--底部-->
+				<th:block th:insert="frontDesk/common/fdfoot::fdfoot"></th:block>
+
+			</div>
+
+			<aside class="menu">
+				<ul>
+					<li class="person active">
+						<a href="#"><i class="am-icon-user"></i>个人中心</a>
+					</li>
+					<li class="person">
+						<p><i class="am-icon-newspaper-o"></i>个人资料</p>
+						<ul>
+							<li><a href="#">个人信息</a></li>
+							<li><a href="#">安全设置</a></li>
+							<li><a href="#">地址管理</a></li>
+							<li><a href="#">快捷支付</a></li>
+						</ul>
+					</li>
+					<li class="person">
+						<p><i class="am-icon-balance-scale"></i>我的交易</p>
+						<ul>
+							<li><a href="#">订单管理</a></li>
+							<li><a href="#">退款售后</a></li>
+							<li><a href="#">评价商品</a></li>
+						</ul>
+					</li>
+				</ul>
+			</aside>
+		</div>
+
+	</body>
+
+</html>

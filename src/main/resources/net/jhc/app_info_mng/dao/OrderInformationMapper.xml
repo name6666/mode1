@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.jhc.app_info_mng.dao.OrderInformationMapper">
+    <insert id="OrderAdd" parameterType="OrderInformation">
+        INSERT INTO order_information(oName,oAddress,oFruit,oPrice,oNumber) VALUES (#{oName},#{oAddress},#{oFruit},#{oPrice},#{oNumber})
+    </insert>
+    <select id="findOrderNamebyId" resultType="OrderInformation" parameterType="int">
+        SELECT * FROM order_information WHERE oid=#{oid}
+    </select>
+
+    <select id="findOrderByoPrice" resultType="OrderInformation" parameterType="String">
+        SELECT * FROM order_information
+        <where>
+            <if test="oFruit!=null and oFruit!=''">
+                AND oFruit like concat('%',#{oFruit},'%')
+            </if>
+            <if test="oName!=null and oName!=''">
+                AND oName like concat('%',#{oName},'%')
+            </if>
+        </where>
+    </select>
+
+    <update id="OrderUpdate" parameterType="OrderInformation">
+        UPDATE order_information
+        <set>
+            <if test="oName!=null">oName=#{oName},</if>
+            <if test="oAddress!=null">oAddress=#{oAddress},</if>
+            <if test="oFruit!=null">oFruit=#{oFruit},</if>
+            <if test="oPrice!=null">oPrice=#{oPrice},</if>
+            <if test="oNumber!=null">oNumber=#{oNumber},</if>
+        </set>
+        WHERE oid=#{oid}
+    </update>
+    <delete id="delOrder" parameterType="int">
+        DELETE FROM order_information WHERE oid=#{oid}
+    </delete>
+</mapper>
+

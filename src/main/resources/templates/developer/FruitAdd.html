@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<th:block th:insert="developer/common/head::head"></th:block>
+	</head>
+	<body class="nav-md footer_fixed">
+		<div class="container body">
+			<div class="main_container">
+				<th:block th:insert="developer/common/head::left"></th:block>
+				<th:block th:insert="developer/common/head::top"></th:block>
+				<div class="right_col" role="main">
+					<div class="clearfix"></div>
+
+					<div class="right_col" role="main">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>新增水果基础信息 <i class="fa fa-user"></i>
+									</h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<div class="clearfix"></div>
+									<form class="form-horizontal form-label-left" th:action="@{/stg/addFruit}" method="post" enctype="multipart/form-data">
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="fName">水果名字 <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="fName" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+												 data-validate-words="1" name="fName" required="required" placeholder="请输入水果名" type="text">
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">重量 <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="fWeight" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+												 data-validate-words="1" name="fWeight" required="required" placeholder="请输入重量" type="text">
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">价格 <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="fPrice" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+													   data-validate-words="1" name="fPrice" required="required" placeholder="请输入价格" type="text">
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">库存量 <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="fInventory" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+													   data-validate-words="1" name="fInventory" required="required" placeholder="请输入库存量" type="text">
+											</div>
+										</div>
+
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<div class="col-md-6 col-md-offset-3">
+												<button id="send" type="submit" class="btn btn-success">保存</button>
+												<button type="button" class="btn btn-primary" id="back">返回</button>
+												<br /><br />
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<th:block th:insert="developer/common/foot::js"></th:block>
+		<script th:src="@{/localjs/appinfoadd.js}"></script>
+	</body>
+</html>
+</html>

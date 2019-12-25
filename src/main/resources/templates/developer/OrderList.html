@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<th:block th:insert="developer/common/head::head"></th:block>
+	</head>
+	<body class="nav-md footer_fixed">
+		<div class="container body">
+
+			<!--    <div class="main_container">-->
+			<div class="main_container">
+				<th:block th:insert="developer/common/head::left"></th:block>
+				<th:block th:insert="developer/common/head::top"></th:block>
+				<div class="right_col" role="main">
+					<div class="clearfix">
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2 th:inline="text">
+										订单信息管理维护 <i class="fa fa-user"></i>
+									</h2>
+									<div class="clearfix">
+									</div>
+								</div>
+								<div class="x_content">
+									<form method="post" th:action="@{/stg/findOrder}">
+										<input type="hidden" name="pageIndex" value="1" />
+										<ul>
+											<li>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12">订单名</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input name="oName" type="text" id="oName" class="form-control col-md-7 col-xs-12">
+													</div>
+												</div>
+											</li>
+											<button type="submit" class="btn btn-primary"> 查 &nbsp;&nbsp;&nbsp;&nbsp;询
+											</button>
+											</li>
+										</ul>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_content">
+									<p class="text-muted font-13 m-b-30"></p>
+									<div id="datatable-responsive_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+										<div class="row">
+											<div class="col-sm-12">
+												<a th:href="@{/stg/addOrder}" class="btn btn-success btn-sm">新增订单基础信息</a>
+												<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed"
+												 cellspacing="0" width="100%" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
+													<thead>
+														<tr role="row">
+															<th class="sorting_asc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1"
+															 aria-label="First name: activate to sort column descending" aria-sort="ascending">买家名字
+															</th>
+															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" aria-label="Last name: activate to sort column ascending">
+																收货地址
+															</th>
+															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" aria-label="Last name: activate to sort column ascending">
+																购买水果
+															</th>
+															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" aria-label="Last name: activate to sort column ascending">
+																支付金额
+															</th>
+															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" aria-label="Last name: activate to sort column ascending">
+																购买数量
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<th:block th:each="order:${orderList}">
+															<tr role="row" class="odd">
+																<td th:text="${order.getOName()}"> </td>
+																<td th:text="${order.getOAddress()}"></td>
+																<td th:text="${order.getOFruit()}"></td>
+																<td th:text="${order.getoPrice()}"></td>
+																<td th:text="${order.getoNumber()}"></td>
+																<td>
+																	<div class="btn-group">
+																		<button type="button" class="btn btn-danger">点击操作</button>
+																		<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+																			<span class="caret"></span>
+																			<span class="sr-only">Toggle Dropdown</span>
+																		</button>
+																		<ul class="dropdown-menu" role="menu">
+																			<li><a class="modifyAppInfo" th:href="@{/stg/modifyOrder(oid=${order.getOid()})}" data-toggle="tooltip"
+																				 data-placement="top" title="" data-original-title="修改订单基础信息">修改</a>
+																			</li>
+																			<li><a class="deleteApp" th:href="@{/stg/delOrder(oid=${order.getOid()})}" data-toggle="tooltip"
+																				 data-placement="top" title="" data-original-title="删除订单基础信息">删除</a>
+																			</li>
+																		</ul>
+																	</div>
+																</td>
+															</tr>
+														</th:block>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<th:block th:insert="developer/common/foot::js"></th:block>
+
+		<script type="text/javascript" th:src="@{/localjs/appinfolist.js}"></script>
+		<script th:src="@{/localjs/appinfolist.js}"></script>
+	</body>
+</html>

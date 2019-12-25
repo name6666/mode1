@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>首页</title>
+
+		<link th:href="@{/assets/css/amazeui.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/assets/css/admin.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/basic/css/demo.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/css/hmstyle.css}" rel="stylesheet" type="text/css" />
+		<script th:src="@{/assets/js/jquery.min.js}"></script>
+		<script th:src="@{/assets/js/amazeui.min.js}"></script>
+
+	</head>
+
+	<body>
+		<div class="hmtop">
+			<!--顶部导航条 -->
+
+			<th:block th:insert="frontDesk/common/fdhead::fdhead"></th:block>
+
+			<!--悬浮搜索框-->
+
+			<div class="nav white">
+				<div class="logo"><img th:src="@{/images/logo.png}" /></div>
+				<div class="logoBig">
+					<li><img th:src="@{/images/logobig.png}" /></li>
+				</div>
+
+				<div class="search-bar pr">
+					<a name="index_none_header_sysc" href="#"></a>
+					<form>
+						<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+						<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+					</form>
+				</div>
+			</div>
+
+			<div class="clear"></div>
+		</div>
+
+
+		<div class="banner">
+			<!--轮播 -->
+			<div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
+				<ul class="am-slides">
+					<li class="banner1"><a href="introduction.html"><img th:src="@{/images/ad1.png}" /></a></li>
+					<li class="banner2"><a><img th:src="@{/images/ad2.png}" /></a></li>
+					<li class="banner3"><a><img th:src="@{/images/ad3.png}" /></a></li>
+					<li class="banner4"><a><img th:src="@{/images/ad4.png}" /></a></li>
+
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="shopNav">
+			<div class="slideall">
+				<div class="long-title"><span class="all-goods">全部分类</span></div>
+				<div class="nav-cont">
+					<ul>
+						<li class="index"><a href="#">首页</a></li>
+						<li class="qc"><a href="#">闪购</a></li>
+						<li class="qc"><a href="#">限时抢</a></li>
+						<li class="qc"><a href="#">团购</a></li>
+						<li class="qc last"><a href="#">大包装</a></li>
+					</ul>
+				</div>
+
+				<!--轮播 -->
+				<script type="text/javascript">
+					(function() {
+						$('.am-slider').flexslider();
+					});
+					$(document).ready(function() {
+						$("li").hover(function() {
+							$(".category-content .category-list li.first .menu-in").css("display", "none");
+							$(".category-content .category-list li.first").removeClass("hover");
+							$(this).addClass("hover");
+							$(this).children("div.menu-in").css("display", "block")
+						}, function() {
+							$(this).removeClass("hover")
+							$(this).children("div.menu-in").css("display", "none")
+						});
+					})
+				</script>
+
+
+				<!--小导航 -->
+				<div class="am-g am-g-fixed smallnav">
+					<div class="am-u-sm-3">
+						<a href="sort.html"><img th:src="@{/images/navsmall.jpg}" />
+							<div class="title">商品分类</div>
+						</a>
+					</div>
+					<div class="am-u-sm-3">
+						<a href="#"><img th:src="@{/images/huismall.jpg}" />
+							<div class="title">大聚惠</div>
+						</a>
+					</div>
+					<div class="am-u-sm-3">
+						<a href="#"><img th:src="@{/images/mansmall.jpg}" />
+							<div class="title">个人中心</div>
+						</a>
+					</div>
+					<div class="am-u-sm-3">
+						<a href="#"><img th:src="@{/images/moneysmall.jpg}" />
+							<div class="title">投资理财</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="clear"></div>
+			</div>
+			<script type="text/javascript">
+				if ($(window).width() < 640) {
+					function autoScroll(obj) {
+						$(obj).find("ul").animate({
+							marginTop: "-39px"
+						}, 500, function() {
+							$(this).css({
+								marginTop: "0px"
+							}).find("li:first").appendTo(this);
+						})
+					}
+
+					$(function() {
+						setInterval('autoScroll(".demo")', 3000);
+					})
+				}
+			</script>
+		</div>
+		<div class="shopMainbg">
+			<div class="shopMain" id="shopmain">
+
+				<!-- 甜点 -->
+
+				<div class=" am-container ">
+					<div class=" shopTitle
+					 ">
+						<h4>水果</h4>
+						<h3>每一道水果都有一个故事</h3>
+						<div class=" today-brands ">
+							<a href=" #">苹果</a>
+							<a href=" # ">橘子</a>
+							<a href=" # ">香蕉 </a>
+							<a href=" #">凤梨</a>
+							<a href=" # ">榴莲</a>
+							<a href=" # ">百香果</a>
+						</div>
+						<span class=" more">
+							<a class=" more-link " href=" #">更多水果</a>
+						</span>
+					</div>
+				</div>
+
+				<div class=" am-g am-g-fixed floodOne ">
+					<div class=" am-u-sm-5 am-u-md-3 am-u-lg-4 text-one ">
+						<a th:href="@{/fdc/findFruitInformation(fid=1)}">
+							<div class=" outer-con ">
+								<div class=" title">
+									水果大礼包开抢啦
+								</div>
+								<div class=" sub-title">
+									苹果大礼包
+								</div>
+							</div>
+							<img th:src="@{/images/act1.jpg}" />
+
+						</a>
+					</div>
+					<div class=" am-u-sm-7 am-u-md-5 am-u-lg-4">
+						<div class="text-two">
+							<div class="outer-con ">
+								<div class="title ">
+									橙子
+								</div>
+								<div class="sub-title ">
+									仅售：¥13.8
+								</div>
+							</div>
+							<a th:href="@{/fdc/findFruitInformation(fid=5)}"><img th:src="@{/images/act5.jpg} " /></a>
+						</div>
+						<div class="text-two last">
+							<div class="outer-con ">
+								<div class="title ">
+									葡萄
+								</div>
+								<div class="sub-title ">
+									仅售：¥13.8
+								</div>
+							</div>
+							<a th:href="@{/fdc/findFruitInformation(fid=6)}"><img th:src="@{/images/act6.jpg} " /></a>
+						</div>
+					</div>
+					<div class="am-u-sm-12 am-u-md-4 ">
+						<div class="am-u-sm-3 am-u-md-6 text-three">
+							<div class="outer-con ">
+								<div class="title ">
+									石榴
+								</div>
+								<div class="sub-title ">
+									尝鲜价：¥4.8
+								</div>
+							</div>
+							<a th:href="@{/fdc/findFruitInformation(fid=4)}"><img th:src="@{/images/act4.jpg} " /></a>
+						</div>
+
+						<div class="am-u-sm-3 am-u-md-6 text-three">
+							<div class="outer-con ">
+								<div class="title ">
+									百香果
+								</div>
+								<div class="sub-title ">
+									尝鲜价：¥4.8
+								</div>
+							</div>
+							<a th:href="@{/fdc/findFruitInformation(fid=7)}"><img th:src="@{/images/act7.jpg} " /></a>
+						</div>
+
+						<div class="am-u-sm-3 am-u-md-6 text-three">
+							<div class="outer-con ">
+								<div class="title ">
+									猕猴桃
+								</div>
+								<div class="sub-title ">
+									尝鲜价：¥4.8
+								</div>
+							</div>
+							<a th:href="@{/fdc/findFruitInformation(fid=2)} "><img th:src="@{/images/act2.jpg} " /></a>
+						</div>
+
+						<div class="am-u-sm-3 am-u-md-6 text-three last ">
+							<div class="outer-con ">
+								<div class="title ">
+									橄榄
+								</div>
+								<div class="sub-title ">
+									尝鲜价：¥4.8
+								</div>
+							</div>
+							<a th:href="@{/fdc/findFruitInformation(fid=11)} "><img th:src="@{/images/cp.jpg} " /></a>
+						</div>
+					</div>
+				</div>
+				<div class="clear "></div>
+				<!--坚果-->
+				<!--        <div class="am-container ">-->
+				<!--            <div class="shopTitle ">-->
+				<!--                <h4>坚果</h4>-->
+				<!--                <h3>酥酥脆脆，回味无穷</h3>-->
+				<!--                <div class="today-brands ">-->
+				<!--                    <a href="# ">腰果</a>-->
+				<!--                    <a href="# ">松子</a>-->
+				<!--                    <a href="# ">夏威夷果 </a>-->
+				<!--                    <a href="# ">碧根果</a>-->
+				<!--                    <a href="# ">开心果</a>-->
+				<!--                    <a href="# ">核桃仁</a>-->
+				<!--                </div>-->
+				<!--                <span class="more "><a class="more-link " href="# ">更多美味</a></span>-->
+				<!--            </div>-->
+				<!--        </div>-->
+				<!--        <div class="am-g am-g-fixed floodTwo ">-->
+				<!--            <div class="am-u-sm-5 am-u-md-4 text-one ">-->
+				<!--                <a href="# ">-->
+				<!--                    <img th:src="@{/images/act1.png} "/>-->
+				<!--                    <div class="outer-con ">-->
+				<!--                        <div class="title ">零食大礼包开抢啦</div>-->
+				<!--                        <div class="sub-title ">当小鱼儿恋上软豆腐</div>-->
+				<!--                    </div>-->
+				<!--                </a>-->
+				<!--            </div>-->
+				<!--            <div class="am-u-sm-7 am-u-md-4 am-u-lg-2 text-two">-->
+				<!--                <div class="outer-con ">-->
+				<!--                    <div class="title ">雪之恋和风大福</div>-->
+				<!--                    <div class="sub-title ">仅售：¥13.8</div>-->
+				<!--                </div>-->
+				<!--                <a href="# "><img th:src="@{/images/5.jpg} "/></a>-->
+				<!--            </div>-->
+
+				<!--            <div class="am-u-md-4 am-u-lg-2 text-three">-->
+				<!--                <div class="outer-con ">-->
+				<!--                    <div class="title ">小优布丁</div>-->
+				<!--                    <div class="sub-title ">尝鲜价：¥4.8</div>-->
+				<!--                </div>-->
+				<!--                <a href="# "><img th:src="@{/images/act3.png} "/></a>-->
+				<!--            </div>-->
+				<!--            <div class="am-u-md-4 am-u-lg-2 text-three">-->
+				<!--                <div class="outer-con ">-->
+				<!--                    <div class="title ">小优布丁</div>-->
+				<!--                    <div class="sub-title ">尝鲜价：¥4.8</div>-->
+				<!--                </div>-->
+				<!--                <a href="# "><img th:src="@{/images/act3.png} "/></a>-->
+				<!--            </div>-->
+				<!--            <div class="am-u-sm-6 am-u-md-4 am-u-lg-2 text-two ">-->
+				<!--                <div class="outer-con ">-->
+				<!--                    <div class="title ">雪之恋和风大福</div>-->
+				<!--                    <div class="sub-title ">仅售：¥13.8</div>-->
+				<!--                </div>-->
+				<!--                <a href="# "><img th:src="@{/images/5.jpg} "/></a>-->
+				<!--            </div>-->
+				<!--            <div class="am-u-sm-6 am-u-md-3 am-u-lg-2 text-four ">-->
+				<!--                <div class="outer-con ">-->
+				<!--                    <div class="title ">雪之恋和风大福</div>-->
+				<!--                    <div class="sub-title ">仅售：¥13.8</div>-->
+				<!--                </div>-->
+				<!--                <a href="# "><img th:src="@{/images/5.jpg} "/></a>-->
+				<!--            </div>-->
+				<!--            <div class="am-u-sm-4 am-u-md-3 am-u-lg-4 text-five">-->
+				<!--                <div class="outer-con ">-->
+				<!--                    <div class="title ">小优布丁</div>-->
+				<!--                    <div class="sub-title ">尝鲜价：¥4.8</div>-->
+				<!--                </div>-->
+				<!--                <a href="# "><img th:src="@{/images/act2.png} "/></a>-->
+				<!--            </div>-->
+				<!--            <div class="am-u-sm-4 am-u-md-3 am-u-lg-2 text-six">-->
+				<!--                <div class="outer-con ">-->
+				<!--                    <div class="title ">-->
+				<!--                        小优布丁-->
+				<!--                    </div>-->
+
+				<!--                    <div class="sub-title ">-->
+				<!--                        尝鲜价：¥4.8-->
+				<!--                    </div>-->
+				<!--                </div>-->
+				<!--                <a href="# "><img th:src="@{/images/act3.png} "/></a>-->
+				<!--            </div>-->
+				<!--            <div class="am-u-sm-4 am-u-md-3 am-u-lg-4 text-five">-->
+				<!--                <div class="outer-con ">-->
+				<!--                    <div class="title ">-->
+				<!--                        小优布丁-->
+				<!--                    </div>-->
+				<!--                    <div class="sub-title ">-->
+				<!--                        尝鲜价：¥4.8-->
+				<!--                    </div>-->
+
+				<!--                </div>-->
+				<!--                <a href="# "><img th:src="@{/images/act2.png} "/></a>-->
+				<!--            </div>-->
+				<!--        </div>-->
+
+				<div class="clear "></div>
+
+				<div class="am-container ">
+					<div class="shopTitle ">
+						<h4>水果</h4>
+						<h3>什么水果最好吃？</h3>
+						<div class="today-brands ">
+							<a th:href="@{/fdc/findFruitInformation(fid=1)}">苹果</a>
+							<a th:href="@{/fdc/findFruitInformation(fid=5)} ">橙子</a>
+							<a th:href="@{/fdc/findFruitInformation(fid=4)}">石榴</a>
+							<a th:href="@{/fdc/findFruitInformation(fid=8)} ">芒果</a>
+						</div>
+						<span class="more ">
+							<a class="more-link " href="# ">更多水果</a>
+						</span>
+					</div>
+				</div>
+				<div class="am-g am-g-fixed flood method3 ">
+					<ul class="am-thumbnails ">
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=1)} ">
+									<img th:src="@{/images/act1.jpg} " />
+									<div class="pro-title ">苹果</div>
+									<span class="e-price ">￥29.90</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=5)} ">
+									<img th:src="@{/images/act5.jpg} " />
+									<div class="pro-title ">橙子</div>
+									<span class="e-price ">￥8.90</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=6)} ">
+									<img th:src="@{/images/act6.jpg} " />
+									<div class="pro-title ">葡萄</div>
+									<span class="e-price ">￥29.90</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=4)} ">
+									<img th:src="@{/images/act4.jpg} " />
+									<div class="pro-title ">石榴</div>
+									<span class="e-price ">￥8.90</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=7)} ">
+									<img th:src="@{/images/act7.jpg} " />
+									<div class="pro-title ">百香果</div>
+									<span class="e-price ">￥29.90</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=8)} ">
+									<img th:src="@{/images/act8.jpg} " />
+									<div class="pro-title ">芒果</div>
+									<span class="e-price ">￥8.90</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=9)} ">
+									<img th:src="@{/images/act9.jpg} " />
+									<div class="pro-title ">梨</div>
+									<span class="e-price ">￥29.90</span>
+								</a>
+							</div>
+						</li>
+
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=10)} ">
+									<img th:src="@{/images/act10.jpg} " />
+									<div class="pro-title ">木瓜</div>
+									<span class="e-price ">￥29.90</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="list ">
+								<a th:href="@{/fdc/findFruitInformation(fid=4)} ">
+									<img th:src="@{/images/act4.jpg} " />
+									<div class="pro-title ">石榴</div>
+									<span class="e-price ">￥8.90</span>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<th:block th:insert="frontDesk/common/fdfoot::fdfoot"></th:block>
+
+			</div>
+		</div>
+		</div>
+		</div>
+		<!--引导 -->
+
+
+		<script>
+			window.jQuery || document.write('<script th:src="@{basic/js/jquery.min.js} "><\/script>');
+		</script>
+		<script type="text/javascript " th:src="@{/basic/js/quick_links.js} "></script>
+	</body>
+
+</html>

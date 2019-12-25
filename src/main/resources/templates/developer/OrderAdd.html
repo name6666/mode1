@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<th:block th:insert="developer/common/head::head"></th:block>
+	</head>
+	<body class="nav-md footer_fixed">
+		<div class="container body">
+			<div class="main_container">
+				<th:block th:insert="developer/common/head::left"></th:block>
+				<th:block th:insert="developer/common/head::top"></th:block>
+				<div class="right_col" role="main">
+					<div class="clearfix"></div>
+
+					<div class="right_col" role="main">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>新增订单基本信息 <i class="fa fa-user"></i>
+									</h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<div class="clearfix"></div>
+									<form class="form-horizontal form-label-left" th:action="@{/stg/addOrder}" method="post" enctype="multipart/form-data">
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oName">买家名字<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="oName" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+												 data-validate-words="1" name="oName" required="required" placeholder="请输入买家名字" type="text">
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oAddress">收货地址 <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="oAddress" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+												 data-validate-words="1" name="oAddress" required="required" placeholder="请输入收货地址" type="text">
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oFruit">购买水果 <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="oFruit" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+												 data-validate-words="1" name="oFruit" required="required" placeholder="请输入购买水果" type="text">
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oFruit">支付金额 <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="oPrice" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+													   data-validate-words="1" name="oPrice" required="required" placeholder="请输入支付金额" type="text">
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oFruit">购买数量 <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="oNumber" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
+													   data-validate-words="1" name="oNumber" required="required" placeholder="请输入购买数量" type="text">
+											</div>
+										</div>
+
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<div class="col-md-6 col-md-offset-3">
+												<button id="send" type="submit" class="btn btn-success">保存</button>
+												<button type="button" class="btn btn-primary" id="back">返回</button>
+												<br /><br />
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<th:block th:insert="developer/common/foot::js"></th:block>
+		<script th:src="@{/localjs/appinfoadd.js}"></script>
+	</body>
+</html>
+</html>
