@@ -4,6 +4,7 @@ import net.jhc.app_info_mng.dao.UserMapper;
 import net.jhc.app_info_mng.pojo.Md;
 import net.jhc.app_info_mng.pojo.Userss;
 import net.jhc.app_info_mng.server.UserServer;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class UserServerImlp implements UserServer {
         return fg;
     }
 
+
     @Override
     public boolean updateUser(Md md) throws Exception {
         boolean fg = false;
@@ -33,9 +35,10 @@ public class UserServerImlp implements UserServer {
         }
         return fg;
     }
-
+    @Cacheable(cacheNames = {"findUserbyId"})
     @Override
     public Md findUserbyId(Integer uid) throws Exception {
+        System.out.println("!!!!!!!!!!!!");
         return zyuserMapper.findUserbyId(uid);
     }
 
@@ -48,8 +51,10 @@ public class UserServerImlp implements UserServer {
         return fg;
     }
 
+    @Cacheable(cacheNames = {"findUserList"})
     @Override
     public List<Md> findUserList(String uName) throws Exception {
+        System.out.println("?????????");
         return zyuserMapper.findUserName(uName);
     }
 
