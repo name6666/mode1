@@ -1,8 +1,7 @@
 package net.jhc.app_info_mng.server.ipml;
 
 import net.jhc.app_info_mng.dao.UserMapper;
-import net.jhc.app_info_mng.pojo.Md;
-import net.jhc.app_info_mng.pojo.Userss;
+import net.jhc.app_info_mng.pojo.User;
 import net.jhc.app_info_mng.server.UserServer;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -16,53 +15,46 @@ public class UserServerImlp implements UserServer {
     @Resource
     private UserMapper zyuserMapper;
 
-    @Override
     @Transactional
-    public boolean addUser(Md md) throws Exception {
+    public boolean addUser(User md) throws Exception {
         boolean fg = false;
-        if (zyuserMapper.UserAdd(md) > 0) {
+        if (zyuserMapper.insertSelective(md) > 0) {
             fg = true;
         }
         return fg;
     }
 
 
-    @Override
-    public boolean updateUser(Md md) throws Exception {
+    public boolean updateUser(User md) throws Exception {
         boolean fg = false;
-        if (zyuserMapper.UserUpdate(md) > 0) {
+        if (zyuserMapper.updateByPrimaryKeySelective(md) > 0) {
             fg = true;
         }
         return fg;
     }
-    @Cacheable(cacheNames = {"findUserbyId"})
-    @Override
-    public Md findUserbyId(Integer uid) throws Exception {
-        System.out.println("!!!!!!!!!!!!");
-        return zyuserMapper.findUserbyId(uid);
+//    @Cacheable(cacheNames = {"findUserbyId"})
+    public User findUserbyId(Integer uid) throws Exception {
+        return zyuserMapper.selectByPrimaryKey(uid);
     }
 
-    @Override
     public boolean deluser(int id) throws Exception {
         boolean fg = false;
-        if (zyuserMapper.deluser(id) > 0) {
+        if (zyuserMapper.deleteByPrimaryKey(id) > 0) {
             fg = true;
         }
         return fg;
     }
 
-    @Cacheable(cacheNames = {"findUserList"})
-    @Override
-    public List<Md> findUserList(String uName) throws Exception {
-        System.out.println("?????????");
+//    @Cacheable(cacheNames = {"findUserList"})
+    public List<User> findUserList(String uName) throws Exception {
         return zyuserMapper.findUserName(uName);
     }
 
-    @Override
-    public Md findUserPwdbyUname(String uName, String uPassWord) throws Exception {
-        List<Md> list = zyuserMapper.findUserName(uName);
+
+    public User findUserPwdbyUname(String uName, String uPassWord) throws Exception {
+        List<User> list = zyuserMapper.findUserName(uName);
         if (list != null) {
-            Md m = list.get(0);
+            User m = list.get(0);
             if (m != null) {
                 if (m.getUPassWord().equals(uPassWord)) {
                     return m;

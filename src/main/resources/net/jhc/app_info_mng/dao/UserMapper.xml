@@ -4,11 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.jhc.app_info_mng.dao.UserMapper">
-    <insert id="UserAdd" parameterType="Md">
-        INSERT INTO sys_user(uName,uPassWord) VALUES(#{uName},#{uPassWord})
-    </insert>
 
-    <select id="findUserName" resultType="Md" parameterType="string">
+    <select id="findUserName" resultType="User" parameterType="string">
         SELECT * FROM sys_user
         <where>
             <if test="uName!=null and uName!=''">
@@ -16,21 +13,5 @@
             </if>
         </where>
     </select>
-
-    <select id="findUserbyId"  resultType="Md" parameterType="int">
-        SELECT * FROM sys_user where uid=#{uid}
-    </select>
-
-    <update id="UserUpdate" parameterType="md">
-        UPDATE sys_user
-        <set>
-            <if test="uName!=null">uName=#{uName},</if>
-            <if test="uPassWord!=null">uPassWord=#{uPassWord},</if>
-        </set>
-        WHERE uid=#{uid}
-    </update>
-    <delete id="deluser" parameterType="int">
-        DELETE FROM sys_user WHERE uid=#{uid}
-    </delete>
 </mapper>
 

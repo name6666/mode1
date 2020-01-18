@@ -1,7 +1,7 @@
 package net.jhc.app_info_mng.config;
 
-import net.jhc.app_info_mng.pojo.Md;
 import net.jhc.app_info_mng.pojo.SuperUser;
+import net.jhc.app_info_mng.pojo.User;
 import net.jhc.app_info_mng.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class SysInterceptor extends HandlerInterceptorAdapter {
 		logger.debug("SysInterceptor preHandle ======================");
 		HttpSession session = request.getSession();
 		
-		Md md = (Md) session.getAttribute(Constants.USER_SESSION);
+		User md = (User) session.getAttribute(Constants.USER_SESSION);
 		SuperUser superUser = (SuperUser) session.getAttribute(Constants.DEV_USER_SESSION);
 		
 		if(null != superUser){ //dev SUCCESS

@@ -4,9 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.jhc.app_info_mng.dao.SuperUserMapper">
-    <insert id="superUserAdd" parameterType="SuperUser">
-        INSERT INTO super_user(sName,sPassword) VALUES(#{sName},#{sPassword})
-    </insert>
     <select id="findSuperUserName" resultType="SuperUser" parameterType="String">
         SELECT * FROM super_user
         <where>
@@ -24,19 +21,5 @@
             </if>
         </where>
     </select>
-
-<!--    <update id="UserUpdate" parameterType="md">-->
-<!--        UPDATE zzs_message-->
-<!--        <set>-->
-<!--            <if test="message_content!=null">message_content=#{message_content},</if>-->
-<!--            <if test="message_date!=null">message_date=#{message_date},</if>-->
-<!--            <if test="Message_reply!=null">Message_reply=#{Message_reply},</if>-->
-<!--            <if test="u_name!=null">u_name=#{u_name},</if>-->
-<!--        </set>-->
-<!--        WHERE message_id=#{message_id}-->
-<!--    </update>-->
-<!--    <delete id="deluser" parameterType="int">-->
-<!--        DELETE FROM sys_user WHERE uid=#{uid}-->
-<!--    </delete>-->
 </mapper>
 

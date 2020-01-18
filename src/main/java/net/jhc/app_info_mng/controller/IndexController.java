@@ -1,8 +1,8 @@
 package net.jhc.app_info_mng.controller;
 
-import net.jhc.app_info_mng.pojo.Md;
 import net.jhc.app_info_mng.pojo.OrderInformation;
 import net.jhc.app_info_mng.pojo.SuperUser;
+import net.jhc.app_info_mng.pojo.User;
 import net.jhc.app_info_mng.server.OrderInformationServer;
 import net.jhc.app_info_mng.server.SuperUserServer;
 import net.jhc.app_info_mng.server.UserServer;
@@ -33,10 +33,12 @@ public class IndexController {
 //    }
 
     @RequestMapping(value = "/Frontdl", method = RequestMethod.POST)
-    public String findpwd1(Model model, Md m, HttpSession session) throws Exception {
-        Md md = null;
+    public String findpwd1(Model model, User m, HttpSession session) throws Exception {
+        User md = null;
         List<OrderInformation> list = null;
         md = userServer.findUserPwdbyUname(m.getUName(), m.getUPassWord());
+        System.out.println(md.toString());
+        System.out.println(m.toString());
         session.setAttribute(Constants.USER_SESSION, md);
         session.setAttribute("lg", "lg");
         if (md != null) {
@@ -60,7 +62,7 @@ public class IndexController {
         SuperUser superUser1 = null;
         superUser1 = superUserServer.findUserPwdbyUname(superUser.getSName(), superUser.getSPassword());
         if (superUser1 != null) {
-            List<Md> list = userServer.findUserList(null);
+            List<User> list = userServer.findUserList(null);
             model.addAttribute("userInfoList", list);
             session.setAttribute(Constants.DEV_USER_SESSION, superUser1);
             return "developer/UserList";

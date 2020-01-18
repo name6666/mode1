@@ -32,14 +32,14 @@
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<input name="oName" id="oName" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
-												 data-validate-words="1" th:value="${order.getOName()}" required="required" placeholder="请输入买家名字" type="text">
+												 data-validate-words="1" th:value="${order.oName}" required="required" placeholder="请输入买家名字" type="text">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oAddress">收货地址 <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input name="oAddress" id="oAddress" type="text" class="form-control col-md-7 col-xs-12" th:value="${order.getOAddress()}"
+												<input name="oAddress" id="oAddress" type="text" class="form-control col-md-7 col-xs-12" th:value="${order.oAddress}"
 												 placeholder="请输入买家名字">
 											</div>
 										</div>
@@ -47,21 +47,21 @@
 											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oFruit">购买水果 <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input name="oFruit" id="oFruit" type="text" class="form-control col-md-7 col-xs-12" th:value="${order.getOFruit()}">
+												<input name="oFruit" id="oFruit" type="text" class="form-control col-md-7 col-xs-12" th:value="${order.oFruit}">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oFruit">支付金额 <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input name="oPrice" id="oPrice" type="text" class="form-control col-md-7 col-xs-12" th:value="${order.getoPrice()}">
+												<input name="oPrice" id="oPrice" type="text" class="form-control col-md-7 col-xs-12" th:value="${order.oPrice}">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="oFruit">购买数量 <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input name="oNumber" id="oNumber" type="text" class="form-control col-md-7 col-xs-12" th:value="${order.getoNumber()}">
+												<input name="oNumber" id="oNumber" type="text" class="form-control col-md-7 col-xs-12" th:value="${order.oNumber}">
 											</div>
 										</div>
 										<div class="form-group">

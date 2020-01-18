@@ -1,7 +1,7 @@
 package net.jhc.app_info_mng.config;
 
-import net.jhc.app_info_mng.pojo.Md;
 import net.jhc.app_info_mng.pojo.SuperUser;
+import net.jhc.app_info_mng.pojo.User;
 import net.jhc.app_info_mng.utils.Constants;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,7 +16,7 @@ public class Filte implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session=request.getSession();
-        Md md = (Md) session.getAttribute(Constants.USER_SESSION);
+        User md = (User) session.getAttribute(Constants.USER_SESSION);
         SuperUser superUser = (SuperUser) session.getAttribute(Constants.DEV_USER_SESSION);
         if (md == null) {
             request.getRequestDispatcher("/Frontdll");

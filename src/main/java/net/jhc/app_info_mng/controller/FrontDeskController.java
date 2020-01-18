@@ -1,9 +1,8 @@
 package net.jhc.app_info_mng.controller;
 
 import net.jhc.app_info_mng.pojo.FruitInformation;
-import net.jhc.app_info_mng.pojo.Md;
 import net.jhc.app_info_mng.pojo.OrderInformation;
-import net.jhc.app_info_mng.pojodto.OrderInformationDto;
+import net.jhc.app_info_mng.pojo.User;
 import net.jhc.app_info_mng.server.FruitInformationServer;
 import net.jhc.app_info_mng.server.OrderInformationServer;
 import net.jhc.app_info_mng.server.UserServer;
@@ -42,11 +41,11 @@ public class FrontDeskController {
 
     @RequestMapping(value = "/findOrder")
     public String findpwd(Model model, String oFruit, HttpServletRequest request) throws Exception {
-        Md md = null;
+        User md = null;
         if (request.getSession().getAttribute(Constants.USER_SESSION) ==null){
             return "frontDesk/Frontdl";
         }
-        md=(Md)request.getSession().getAttribute(Constants.USER_SESSION);
+        md=(User)request.getSession().getAttribute(Constants.USER_SESSION);
         List<OrderInformation> list = orderInformationServer.findOrderList(oFruit, md.getUName());
         model.addAttribute("OrderList", list);
         return "frontDesk/MyOrder";
@@ -56,7 +55,7 @@ public class FrontDeskController {
     @RequestMapping(value = "/del")
     public String del(Integer oid, Model model, HttpServletRequest request) {
         List<OrderInformation> list = null;
-        Md md = (Md) request.getSession().getAttribute(Constants.USER_SESSION);
+        User md = (User) request.getSession().getAttribute(Constants.USER_SESSION);
         try {
             orderInformationServer.delOrder(oid);
             list = orderInformationServer.findOrderList(null, md.getUName());
@@ -68,7 +67,7 @@ public class FrontDeskController {
     }
 
     @RequestMapping(value = "/useradd", method = RequestMethod.POST)
-    public String add(Model model, Md md) {
+    public String add(Model model, User md) {
         boolean lg = false;
         try {
             lg = userServer.addUser(md);
@@ -98,20 +97,20 @@ public class FrontDeskController {
     public String findFruitInformation(Model model, Integer fid) throws Exception {
         FruitInformation information = fruitInformationServer.findFruitbyId(fid);
         model.addAttribute("fruitInformation", information);
-
         return "/frontDesk/ByFruit";
     }
 
     @RequestMapping(value = "/byFruit")
-    public String byFruit(Model model, OrderInformationDto informationDto, HttpServletRequest request) throws Exception {
-        Md md = (Md) request.getSession().getAttribute(Constants.USER_SESSION);
+    public String byFruit(Model model, OrderInformation informationDto, HttpServletRequest request) throws Exception {
+        User md = (User) request.getSession().getAttribute(Constants.USER_SESSION);
         OrderInformation information=new OrderInformation();
 
 //      计算总价
         information.setOName(md.getUName());
-        int oPrice =Integer.parseInt(informationDto.getOPrice()) ;
+        int oPrice =informationDto.getOPrice() ;
         int oNumber = informationDto.getONumber();
         int sum = oNumber * oPrice;
+
         information.setOPrice(sum);
         information.setOAddress(informationDto.getOAddress());
         information.setOFruit(informationDto.getOFruit());

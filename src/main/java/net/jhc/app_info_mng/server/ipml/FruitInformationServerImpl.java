@@ -17,7 +17,7 @@ public class FruitInformationServerImpl implements FruitInformationServer {
     @Override
     public boolean addFruit(FruitInformation fruitInformation) throws Exception {
         boolean fg = false;
-        if (fruitInformationMapper.FrontAdd(fruitInformation) > 0) {
+        if (fruitInformationMapper.insertSelective(fruitInformation) > 0) {
             fg = true;
         }
         return fg;
@@ -26,7 +26,7 @@ public class FruitInformationServerImpl implements FruitInformationServer {
     @Override
     public boolean delFruit(int fid) throws Exception {
         boolean fg = false;
-        if (fruitInformationMapper.delFront(fid) > 0) {
+        if (fruitInformationMapper.deleteByPrimaryKey(fid) > 0) {
             fg = true;
         }
         return fg;
@@ -35,21 +35,25 @@ public class FruitInformationServerImpl implements FruitInformationServer {
     @Override
     public boolean updateFruit(FruitInformation fruitInformation) throws Exception {
         boolean fg = false;
-        if (fruitInformationMapper.FrontUpdate(fruitInformation) > 0) {
+        if (fruitInformationMapper.updateByPrimaryKeySelective(fruitInformation) > 0) {
             fg = true;
         }
         return fg;
     }
 
-    @Cacheable(cacheNames = {"findFruitList"})
+//    @Cacheable(cacheNames = {"findFruitList"})
     @Override
     public List<FruitInformation> findFruitList(String fName) throws Exception {
         return fruitInformationMapper.findUserFrontbyUname(fName);
     }
 
-    @Cacheable(cacheNames = {"findFruitbyId"})
+//    @Cacheable(cacheNames = {"findFruitbyId"})
     @Override
     public FruitInformation findFruitbyId(Integer fid) throws Exception {
-        return fruitInformationMapper.findFrontNamebyId(fid);
+        FruitInformation fruitInformations = fruitInformationMapper.selectByPrimaryKey(fid);
+        System.out.println(fruitInformations.toString());
+        return fruitInformations;
+
+
     }
 }

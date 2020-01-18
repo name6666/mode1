@@ -17,7 +17,7 @@ public class SuperUserImpl implements SuperUserServer {
     @Override
     public boolean addUser(SuperUser superUser) throws Exception {
         boolean fg = false;
-        if (superUserMapper.superUserAdd(superUser) > 0) {
+        if (superUserMapper.insertSelective(superUser) > 0) {
             fg = true;
         }
         return false;
@@ -35,7 +35,7 @@ public class SuperUserImpl implements SuperUserServer {
         return null;
     }
 
-    @Cacheable(cacheNames = {"findSuperUserAllbyUname"})
+//    @Cacheable(cacheNames = {"findSuperUserAllbyUname"})
     @Override
     public List<SuperUser> findSuperUserAllbyUname(String sName) throws Exception {
         return superUserMapper.findSuperUserAllbyUname(sName);

@@ -1,8 +1,8 @@
 package net.jhc.app_info_mng.controller;
 
 import net.jhc.app_info_mng.pojo.FruitInformation;
-import net.jhc.app_info_mng.pojo.Md;
 import net.jhc.app_info_mng.pojo.OrderInformation;
+import net.jhc.app_info_mng.pojo.User;
 import net.jhc.app_info_mng.server.FruitInformationServer;
 import net.jhc.app_info_mng.server.OrderInformationServer;
 import net.jhc.app_info_mng.server.UserServer;
@@ -69,9 +69,9 @@ public class StageController {
     }
 
     @RequestMapping(value = "adduser", method = RequestMethod.POST)
-    public String adduser(Model model, Md md) throws Exception {
+    public String adduser(Model model, User md) throws Exception {
         userServer.addUser(md);
-        List<Md> list = userServer.findUserList(null);
+        List<User> list = userServer.findUserList(null);
         model.addAttribute("userInfoList", list);
         return "developer/UserList";
     }
@@ -80,7 +80,7 @@ public class StageController {
     public String delUser(Model model, int uid) {
         try {
             userServer.deluser(uid);
-            List<Md> list = userServer.findUserList(null);
+            List<User> list = userServer.findUserList(null);
             model.addAttribute("userInfoList", list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,16 +90,16 @@ public class StageController {
 
     @RequestMapping(value = "modifyUser")
     public String modifyUserget(Model model, int uid) throws Exception {
-        Md md = userServer.findUserbyId(uid);
+        User md = userServer.findUserbyId(uid);
         model.addAttribute("md", md);
         return "developer/UserModify";
     }
 
     @RequestMapping(value = "modifyUser", method = RequestMethod.POST)
-    public String modifyUser(Model model, Md md) {
+    public String modifyUser(Model model, User md) {
         try {
             userServer.updateUser(md);
-            List<Md> list = userServer.findUserList(null);
+            List<User> list = userServer.findUserList(null);
             model.addAttribute("userInfoList", list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,7 +110,7 @@ public class StageController {
     @RequestMapping(value = "findUser")
     public String findUser(Model model, String uName) {
         try {
-            List<Md> list = userServer.findUserList(uName);
+            List<User> list = userServer.findUserList(uName);
             model.addAttribute("userInfoList", list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,12 +173,12 @@ public class StageController {
         return "/developer/FruitList";
     }
 
-    @RequestMapping(value = "addOrder")
+    @RequestMapping(value = "/addOrder")
     public String addOrderget() {
         return "/developer/OrderAdd";
     }
 
-    @RequestMapping(value = "addOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
     public String addOrder(Model model, OrderInformation orderInformation) throws Exception {
         orderInformationServer.addOrder(orderInformation);
         List<OrderInformation> list = orderInformationServer.findOrderList(null,null);
