@@ -37,8 +37,6 @@ public class IndexController {
         User md = null;
         List<OrderInformation> list = null;
         md = userServer.findUserPwdbyUname(m.getUName(), m.getUPassWord());
-        System.out.println(md.toString());
-        System.out.println(m.toString());
         session.setAttribute(Constants.USER_SESSION, md);
         session.setAttribute("lg", "lg");
         if (md != null) {
@@ -72,11 +70,4 @@ public class IndexController {
         }
     }
 
-    @ExceptionHandler
-    public ModelAndView cwcl(Exception e) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("error", e.toString());
-        mv.setViewName("error");
-        return mv;
-    }
 }

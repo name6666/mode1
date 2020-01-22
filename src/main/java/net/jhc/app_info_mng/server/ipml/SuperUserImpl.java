@@ -4,6 +4,7 @@ package net.jhc.app_info_mng.server.ipml;
 import net.jhc.app_info_mng.dao.SuperUserMapper;
 import net.jhc.app_info_mng.pojo.SuperUser;
 import net.jhc.app_info_mng.server.SuperUserServer;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class SuperUserImpl implements SuperUserServer {
         return null;
     }
 
-//    @Cacheable(cacheNames = {"findSuperUserAllbyUname"})
+    @CachePut(cacheNames = {"findSuperUserAllbyUname"})
     @Override
     public List<SuperUser> findSuperUserAllbyUname(String sName) throws Exception {
         return superUserMapper.findSuperUserAllbyUname(sName);

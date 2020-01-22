@@ -11,6 +11,7 @@ import net.jhc.app_info_mng.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,11 @@ public class FrontDeskController {
         md=(User)request.getSession().getAttribute(Constants.USER_SESSION);
         List<OrderInformation> list = orderInformationServer.findOrderList(oFruit, md.getUName());
         model.addAttribute("OrderList", list);
+
+//        for (int i=0;i<list.size();i++){
+//            System.out.println(list.get(i).toString());
+//        }
+
         return "frontDesk/MyOrder";
     }
 
@@ -101,7 +107,8 @@ public class FrontDeskController {
     }
 
     @RequestMapping(value = "/byFruit")
-    public String byFruit(Model model, OrderInformation informationDto, HttpServletRequest request) throws Exception {
+    @Transactional
+    public String byFruit(Model model,Integer fid, OrderInformation informationDto, HttpServletRequest request) throws Exception {
         User md = (User) request.getSession().getAttribute(Constants.USER_SESSION);
         OrderInformation information=new OrderInformation();
 
@@ -110,24 +117,25 @@ public class FrontDeskController {
         int oPrice =informationDto.getOPrice() ;
         int oNumber = informationDto.getONumber();
         int sum = oNumber * oPrice;
+        Integer number = informationDto.getONumber();
+        FruitInformation information1 = fruitInformationServer.findFruitbyId(fid);
+        Integer inventory = information1.getfInventory();
+        information1.setFInventory(inventory-number);
+        fruitInformationServer.updateFruit(information1);
 
         information.setOPrice(sum);
         information.setOAddress(informationDto.getOAddress());
         information.setOFruit(informationDto.getOFruit());
         information.setONumber(informationDto.getONumber());
         boolean b = orderInformationServer.addOrder(information);
+//        System.out.println(information);
 
         List<OrderInformation> list = orderInformationServer.findOrderList(null, md.getUName());
+//        for (int i=0;i<list.size();i++){
+//            System.out.println(list.get(i).toString());
+//        }
         model.addAttribute("OrderList", list);
         return "/frontDesk/MyOrder";
     }
 
-
-    @ExceptionHandler
-    public ModelAndView cwcl(Exception e) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("error", e.toString());
-        mv.setViewName("error");
-        return mv;
-    }
 }

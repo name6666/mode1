@@ -13,7 +13,7 @@
 
                     <a target="_top" class="h" th:if="${session.userSession} != null" ><span th:text="${session.userSession.uName}"></span></a>
 
-                    <a th:href="@{/fdc/userinfoadd}" id="new" target="_top">免费注册8</a>
+                    <a th:href="@{/fdc/userinfoadd}" id="new" target="_top">免费注册</a>
                     <script>
                         $("button").click(function() {
                             $.ajax({

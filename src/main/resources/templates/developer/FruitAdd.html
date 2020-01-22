@@ -1,79 +1,229 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<th:block th:insert="developer/common/head::head"></th:block>
-	</head>
-	<body class="nav-md footer_fixed">
-		<div class="container body">
-			<div class="main_container">
-				<th:block th:insert="developer/common/head::left"></th:block>
-				<th:block th:insert="developer/common/head::top"></th:block>
-				<div class="right_col" role="main">
-					<div class="clearfix"></div>
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="developer/common/head::head"></th:block>
 
-					<div class="right_col" role="main">
-						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>新增水果基础信息 <i class="fa fa-user"></i>
-									</h2>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<div class="clearfix"></div>
-									<form class="form-horizontal form-label-left" th:action="@{/stg/addFruit}" method="post" enctype="multipart/form-data">
-										<div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="fName">水果名字 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input id="fName" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
-												 data-validate-words="1" name="fName" required="required" placeholder="请输入水果名" type="text">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">重量 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input id="fWeight" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
-												 data-validate-words="1" name="fWeight" required="required" placeholder="请输入重量" type="text">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">价格 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input id="fPrice" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
-													   data-validate-words="1" name="fPrice" required="required" placeholder="请输入价格" type="text">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">库存量 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input id="fInventory" class="form-control col-md-7 col-xs-12" data-validate-length-range="20"
-													   data-validate-words="1" name="fInventory" required="required" placeholder="请输入库存量" type="text">
-											</div>
-										</div>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" th:href="@{/plugins/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 
-										<div class="ln_solid"></div>
-										<div class="form-group">
-											<div class="col-md-6 col-md-offset-3">
-												<button id="send" type="submit" class="btn btn-success">保存</button>
-												<button type="button" class="btn btn-primary" id="back">返回</button>
-												<br /><br />
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<th:block th:insert="developer/common/foot::js"></th:block>
-		<script th:src="@{/localjs/appinfoadd.js}"></script>
-	</body>
+
+    <script th:src="@{/js/vue.js}"></script>
+    <script th:src="@{/js/axios.js}"></script>
+    <script th:src="@{/js/elementui.js}"></script>
+    <style>
+        .avatar-uploader .el-upload {
+            border: 1px dashed #d9d9d9;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-uploader .el-upload:hover {
+            border-color: #409EFF;
+        }
+
+        .avatar-uploader-icon {
+            font-size: 28px;
+            color: #8c939d;
+            width: 178px;
+            height: 178px;
+            line-height: 178px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 178px;
+            height: 178px;
+            display: block;
+        }
+    </style>
+
+</head>
+<body class="nav-md footer_fixed">
+
+
+<div class="container body">
+    <div class="main_container">
+        <th:block th:insert="developer/common/head::left"></th:block>
+        <th:block th:insert="developer/common/head::top"></th:block>
+        <div id="app">
+            <div class="right_col" role="main">
+                <div class="clearfix"></div>
+
+                <div class="right_col" role="main">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>新增水果基础信息 <i class="fa fa-user"></i>
+                                </h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="clearfix"></div>
+                                <!--                                <form class="form-horizontal form-label-left" th:action="@{/stg/addFruit}" method="post"-->
+                                <!--                                      enctype="multipart/form-data">-->
+                                <!--                                    <div class="item form-group">-->
+                                <!--                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fName">水果名字 <span-->
+                                <!--                                                class="required">*</span>-->
+                                <!--                                        </label>-->
+                                <!--                                        <div class="col-md-6 col-sm-6 col-xs-12">-->
+                                <!--                                            <input id="fName" class="form-control col-md-7 col-xs-12"-->
+                                <!--                                                   data-validate-length-range="20"-->
+                                <!--                                                   data-validate-words="1" name="fName" required="required"-->
+                                <!--                                                   placeholder="请输入水果名" type="text">-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="item form-group">-->
+                                <!--                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">重量 <span-->
+                                <!--                                                class="required">*</span>-->
+                                <!--                                        </label>-->
+                                <!--                                        <div class="col-md-6 col-sm-6 col-xs-12">-->
+                                <!--                                            <input id="fWeight" class="form-control col-md-7 col-xs-12"-->
+                                <!--                                                   data-validate-length-range="20"-->
+                                <!--                                                   data-validate-words="1" name="fWeight" required="required"-->
+                                <!--                                                   placeholder="请输入重量" type="text">-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="item form-group">-->
+                                <!--                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">价格 <span-->
+                                <!--                                                class="required">*</span>-->
+                                <!--                                        </label>-->
+                                <!--                                        <div class="col-md-6 col-sm-6 col-xs-12">-->
+                                <!--                                            <input id="fPrice" class="form-control col-md-7 col-xs-12"-->
+                                <!--                                                   data-validate-length-range="20"-->
+                                <!--                                                   data-validate-words="1" name="fPrice" required="required"-->
+                                <!--                                                   placeholder="请输入价格" type="text">-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="item form-group">-->
+                                <!--                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fWeight">库存量 <span-->
+                                <!--                                                class="required">*</span>-->
+                                <!--                                        </label>-->
+                                <!--                                        <div class="col-md-6 col-sm-6 col-xs-12">-->
+                                <!--                                            <input id="fInventory" class="form-control col-md-7 col-xs-12"-->
+                                <!--                                                   data-validate-length-range="20"-->
+                                <!--                                                   data-validate-words="1" name="fInventory" required="required"-->
+                                <!--                                                   placeholder="请输入库存量" type="text">-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+
+                                <!--                                    <el-upload-->
+                                <!--                                            class="avatar-uploader"-->
+                                <!--                                            action="https://jsonplaceholder.typicode.com/posts/"-->
+                                <!--                                            :show-file-list="false"-->
+                                <!--                                            :on-success="handleAvatarSuccess"-->
+                                <!--                                            :before-upload="beforeAvatarUpload">-->
+                                <!--                                        <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
+                                <!--                                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+                                <!--                                    </el-upload>-->
+
+
+                                <!--                                    <div class="ln_solid"></div>-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <div class="col-md-6 col-md-offset-3">-->
+                                <!--                                            <button id="send" type="submit" class="btn btn-success">保存</button>-->
+                                <!--                                            <button type="button" class="btn btn-primary" id="back">返回</button>-->
+                                <!--                                            <br/><br/>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </form>-->
+
+
+                                <div class="form-horizontal form-label-left" style="width: 100%">
+                                    <el-form label-width="80px">
+                                        <el-form-item label="相册名称">
+                                            <el-input v-model="pojo.fName"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="相册封面">
+                                            <el-input v-model="pojo.fWeight"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="图片列表">
+                                            <el-input v-model="pojo.fPrice"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="图片列表">
+                                            <el-input v-model="pojo.fInventory"></el-input>
+                                        </el-form-item>
+
+                                        <!-- 图片上传代码 如页面有图片上传功能放开注释 ****-->
+                                        <el-form-item label="图片">
+                                            <el-upload
+                                                    class="avatar-uploader"
+                                                    action="http://localhost:8080/sj/native"
+                                                    :show-file-list="false"
+                                                    :on-success="handleAvatarSuccess"
+                                                    :before-upload="beforeAvatarUpload">
+                                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                            </el-upload>
+                                        </el-form-item>
+
+                                        <el-form-item>
+                                            <el-button type="primary" @click="save()">保存</el-button>
+                                            <!--                                        <el-button @click="formVisible = false">关闭</el-button>-->
+                                        </el-form-item>
+                                    </el-form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:insert="developer/common/foot::js"></th:block>
+<script th:src="@{/localjs/appinfoadd.js}"></script>
+
+</body>
+
+<script th:src="@{/js/vue.js}"></script>
+<script th:src="@{/js/axios.js}"></script>
+<script th:src="@{/js/elementui.js}"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                tableData: [],
+                searchMap: {},
+                pojo: {},
+                imageUrl: ''
+            };
+        },
+
+        methods: {
+            save() {
+                this.pojo.fimg = this.imageUrl; //如页面有图片上传功能放开注释
+                axios.post(`/sj/stg/addFruits`, this.pojo).then(response => {
+                    // this.fetchData(); //刷新列表
+                    // this.formVisible = false;//关闭窗口
+                    location.href = "http://localhost:8080/sj/stg/findFruit"
+                });
+            },
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = file.response;
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            }
+        }
+    })
+</script>
+
+
 </html>
-</html>
+

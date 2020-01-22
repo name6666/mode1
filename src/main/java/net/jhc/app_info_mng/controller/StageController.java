@@ -12,9 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "stg")
+@RequestMapping(value = "/stg")
 public class StageController {
     @Resource
     private UserServer userServer;
@@ -34,28 +32,6 @@ public class StageController {
     private OrderInformationServer orderInformationServer;
 
     private Logger logger= LoggerFactory.getLogger(StageController.class);
-
-//    @RequestMapping(value = "dl", method = RequestMethod.GET)
-//    public String idx() {
-//        return "dl";
-//    }
-//
-//    @RequestMapping(value = "dl", method = RequestMethod.POST)
-//    public String findpwd(Model model, SuperUser superUser, HttpServletRequest request) throws Exception {
-//        SuperUser superUser1 = null;
-//        superUser1 = superUserServer.findUserPwdbyUname(superUser.getSName(), superUser.getSPassword());
-//
-//        if (superUser1 != null) {
-//            List<Md> list = zs.findUserList(null);
-//            model.addAttribute("userInfoList", list);
-//            HttpSession session=request.getSession();
-//            session.setAttribute(Constants.DEV_USER_SESSION,superUser1);
-//            return "developer/UserList";
-//        } else {
-//            model.addAttribute("lg", "错误");
-//            return "dl";
-//        }
-//    }
 
     @RequestMapping(value = "logout")
     public String logout(HttpServletRequest request) {
@@ -123,11 +99,12 @@ public class StageController {
         return "/developer/FruitAdd";
     }
 
-    @RequestMapping(value = "addFruit", method = RequestMethod.POST)
-    public String addFruit(Model model, FruitInformation fruitInformation) throws Exception {
+    @RequestMapping(value = "addFruits", method = RequestMethod.POST)
+    public String addFruit(Model model,@RequestBody FruitInformation fruitInformation) throws Exception {
+        System.out.println(fruitInformation.toString());
         fruitInformationServer.addFruit(fruitInformation);
-        List<FruitInformation> list = fruitInformationServer.findFruitList(null);
-        model.addAttribute("FruitList",list);
+//        List<FruitInformation> list = fruitInformationServer.findFruitList(null);
+//        model.addAttribute("FruitList",list);
         return "/developer/FruitList";
     }
 
@@ -171,6 +148,11 @@ public class StageController {
             e.printStackTrace();
         }
         return "/developer/FruitList";
+    }
+
+    @RequestMapping(value = "findAllFruit",method = RequestMethod.POST)
+    public List<FruitInformation> findAllFruit(Model model, String fName) {
+        return fruitInformationServer.findAll();
     }
 
     @RequestMapping(value = "/addOrder")
@@ -228,11 +210,4 @@ public class StageController {
         return "/developer/OrderList";
     }
 
-    @ExceptionHandler
-    public ModelAndView cwcl(Exception e){
-        ModelAndView mv=new ModelAndView();
-        mv.addObject("error",e.toString());
-        mv.setViewName("error");
-        return mv;
-    }
 }

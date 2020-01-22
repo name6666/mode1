@@ -3,6 +3,7 @@ package net.jhc.app_info_mng.server.ipml;
 import net.jhc.app_info_mng.dao.UserMapper;
 import net.jhc.app_info_mng.pojo.User;
 import net.jhc.app_info_mng.server.UserServer;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ public class UserServerImlp implements UserServer {
     private UserMapper zyuserMapper;
 
     @Transactional
+    @Override
     public boolean addUser(User md) throws Exception {
         boolean fg = false;
         if (zyuserMapper.insertSelective(md) > 0) {
@@ -25,6 +27,7 @@ public class UserServerImlp implements UserServer {
     }
 
 
+    @Override
     public boolean updateUser(User md) throws Exception {
         boolean fg = false;
         if (zyuserMapper.updateByPrimaryKeySelective(md) > 0) {
@@ -32,11 +35,13 @@ public class UserServerImlp implements UserServer {
         }
         return fg;
     }
-//    @Cacheable(cacheNames = {"findUserbyId"})
+    @CachePut(cacheNames = {"findUserbyId"})
+    @Override
     public User findUserbyId(Integer uid) throws Exception {
         return zyuserMapper.selectByPrimaryKey(uid);
     }
 
+    @Override
     public boolean deluser(int id) throws Exception {
         boolean fg = false;
         if (zyuserMapper.deleteByPrimaryKey(id) > 0) {
@@ -45,12 +50,13 @@ public class UserServerImlp implements UserServer {
         return fg;
     }
 
-//    @Cacheable(cacheNames = {"findUserList"})
+    @CachePut(cacheNames = {"findUserList"})
+    @Override
     public List<User> findUserList(String uName) throws Exception {
         return zyuserMapper.findUserName(uName);
     }
 
-
+    @Override
     public User findUserPwdbyUname(String uName, String uPassWord) throws Exception {
         List<User> list = zyuserMapper.findUserName(uName);
         if (list != null) {

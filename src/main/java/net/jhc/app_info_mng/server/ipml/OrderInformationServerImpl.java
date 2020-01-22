@@ -3,6 +3,7 @@ package net.jhc.app_info_mng.server.ipml;
 import net.jhc.app_info_mng.dao.OrderInformationMapper;
 import net.jhc.app_info_mng.pojo.OrderInformation;
 import net.jhc.app_info_mng.server.OrderInformationServer;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +32,14 @@ public class OrderInformationServerImpl implements OrderInformationServer {
         }
         return fg;
     }
-//    @Cacheable(cacheNames = {"findOrderList"})
+    @CachePut(cacheNames = {"findOrderList"})
     @Override
     public List<OrderInformation> findOrderList(String oPrice,String oName) throws Exception {
         OrderInformation information=new OrderInformation();
         return orderInformationMapper.findOrderByoPrice(oPrice,oName);
     }
 
-//    @Cacheable(cacheNames = {"findOrderNamebyId"})
+    @CachePut(cacheNames = {"findOrderNamebyId"})
     @Override
     public  OrderInformation findOrderNamebyId(Integer oid) throws Exception {
         return orderInformationMapper.selectByPrimaryKey(oid);

@@ -3,6 +3,7 @@ package net.jhc.app_info_mng.server.ipml;
 import net.jhc.app_info_mng.dao.FruitInformationMapper;
 import net.jhc.app_info_mng.pojo.FruitInformation;
 import net.jhc.app_info_mng.server.FruitInformationServer;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -41,17 +42,22 @@ public class FruitInformationServerImpl implements FruitInformationServer {
         return fg;
     }
 
-//    @Cacheable(cacheNames = {"findFruitList"})
+    @CachePut(cacheNames = {"findFruitList"})
     @Override
     public List<FruitInformation> findFruitList(String fName) throws Exception {
         return fruitInformationMapper.findUserFrontbyUname(fName);
     }
 
-//    @Cacheable(cacheNames = {"findFruitbyId"})
+    @Override
+    public List<FruitInformation> findAll() {
+        return fruitInformationMapper.selectAll();
+    }
+
+
+    @CachePut(cacheNames = {"findFruitbyId"})
     @Override
     public FruitInformation findFruitbyId(Integer fid) throws Exception {
         FruitInformation fruitInformations = fruitInformationMapper.selectByPrimaryKey(fid);
-        System.out.println(fruitInformations.toString());
         return fruitInformations;
 
 

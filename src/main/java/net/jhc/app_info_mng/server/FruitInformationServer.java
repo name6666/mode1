@@ -15,5 +15,5 @@ public interface FruitInformationServer {
     public List<FruitInformation> findFruitList(String fName) throws Exception;
 
     public FruitInformation findFruitbyId(Integer fid) throws Exception;
-
+    public List<FruitInformation> findAll();
 }
